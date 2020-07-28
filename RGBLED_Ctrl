@@ -1,0 +1,49 @@
+const int rLedPin = 9;
+const int gLedPin = 10;
+const int bLedPin = 11;
+
+void setup() {
+  pinMode(rLedPin, OUTPUT);
+  pinMode(gLedPin, OUTPUT);
+  pinMode(bLedPin, OUTPUT);
+  
+  digitalWrite(rLedPin, LOW);
+  digitalWrite(gLedPin, LOW);
+  digitalWrite(bLedPin, LOW);
+}
+
+void RGBLED_Display(int Num) {
+  switch (Num) {
+    case 0 :
+    digitalWrite(rLedPin, LOW);
+    digitalWrite(gLedPin, LOW);
+    digitalWrite(bLedPin, LOW);
+    break;
+    
+    case 1 :
+    digitalWrite(rLedPin, HIGH);
+    digitalWrite(gLedPin, LOW);
+    digitalWrite(bLedPin, LOW);
+    break;
+    
+    case 2 :
+    digitalWrite(rLedPin, LOW);
+    digitalWrite(gLedPin, HIGH);
+    digitalWrite(bLedPin, LOW);
+    break;
+    
+    case 3 :
+    digitalWrite(rLedPin, LOW);
+    digitalWrite(gLedPin, LOW);
+    digitalWrite(bLedPin, HIGH);
+    break;
+  }
+}
+
+void loop() {
+  
+  for (int i=0; i<4; i++) {
+    RGBLED_Display(i);
+    delay(1000);
+  }
+}
