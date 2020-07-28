@@ -1,0 +1,19 @@
+const int slideSwitchPin = 8;
+const int ledPin = 13;
+
+void setup() {
+  pinMode(8, INPUT);
+  pinMode(13, OUTPUT);
+}
+
+void loop(){
+  int readValue = digitalRead(8);
+  Serial.println(readValue);
+  
+  if(readValue == HIGH) {
+    digitalWrite(13,HIGH);
+  }
+  else {
+    digitalWrite(13,LOW);
+  }
+}
