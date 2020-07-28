@@ -1,0 +1,40 @@
+const int speakerPin = 13;
+
+int Do = 262;
+int Re = 294;
+int Mi = 330;
+int Pa = 349;
+int Sol = 392;
+int Ra = 440;
+int Si = 494;
+int Do1 = 523;
+
+int numMax = 3;
+
+void setup() {
+  pinMode(speakerPin, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  while (numMax) {
+    tone(speakerPin,Do,500);
+    delay(500);
+    tone(speakerPin,Re,500);
+    delay(500);
+    tone(speakerPin,Mi,500);
+    delay(500);
+    tone(speakerPin,Pa,500);
+    delay(500);
+    tone(speakerPin,Sol,500);
+    delay(500);
+    tone(speakerPin,Ra,500);
+    delay(500);
+    tone(speakerPin,Si,500);
+    delay(500);
+    tone(speakerPin,Do1,500);
+    delay(500);
+    numMax--;
+    Serial.println(numMax);
+  }
+}
