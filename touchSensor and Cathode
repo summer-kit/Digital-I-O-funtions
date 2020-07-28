@@ -1,0 +1,57 @@
+const int touchSensorPin = 2;
+const int rLedPin = 11;
+const int gLedPin = 9;
+const int bLedPin = 10;
+
+boolean lastTouch = LOW;
+boolean currentTouch = LOW;
+int touchInputNum = 0;
+
+void setup () {
+  pinMode(touchSensorPin, INPUT);
+  pinMode(rLedPin, OUTPUT);
+  pinMode(gLedPin, OUTPUT);
+  pinMode(bLedPin, OUTPUT);
+  digitalWrite(rLedPin, LOW);
+  digitalWrite(gLedPin, LOW);
+  digitalWrite(bLedPin, LOW);
+}
+
+void RGBLED_Display(int touchInputNum) {
+  switch(touchInputNum) {
+    case 0 :
+    digitalWrite(rLedPin,LOW);
+    digitalWrite(gLedPin,LOW);
+    digitalWrite(bLedPin,LOW);
+    
+    case 1 :
+    digitalWrite(rLedPin,HIGH);
+    digitalWrite(gLedPin,LOW);
+    digitalWrite(bLedPin,LOW);
+    
+    case 2 :
+    digitalWrite(rLedPin,LOW);
+    digitalWrite(gLedPin,HIGH);
+    digitalWrite(bLedPin,LOW);
+    
+    case 3 :
+    digitalWrite(rLedPin,LOW);
+    digitalWrite(gLedPin,LOW);
+    digitalWrite(bLedPin,HIGH);
+  }
+}
+
+void loop () {
+  currentTouch = digitalRead(touchSensorPin);
+  
+  
+  if(lastTouch==HIGH && currentTouch==LOW) {
+    touchInputNum++;
+    if(touchInputNum == 4) {
+      touchInputNum = 0;
+    }
+  }
+  RGBLED_Display(touchInputNum);
+  
+  lastTouch=currentTouch;
+}
