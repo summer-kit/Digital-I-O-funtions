@@ -1,0 +1,80 @@
+#include <Keypad.h>
+
+const int rLedPin = 13;
+const int gLedPin = 12;
+const int bLedPin = 11;
+
+const byte ROWS = 4;
+const byte COLS = 4;
+
+char myKeys[ROWS][COLS] = {
+  {'1','2','3','A'},
+  {'4','5','6','B'},
+  {'7','8','9','C'},
+  {'*','0','#','D'}
+};
+
+byte rowPins[ROWS] = {10,9,8,7};
+byte colPins[COLS] = {6,5,4,3};
+
+Keypad myKeypad = Keypad(makeKeymap(myKeys), rowPins, colPins, ROWS, COLS);
+
+String pinCode = "1234"; //비밀번호를 저장하는 변수
+String enterPinCode; //입력 비밀번호를 저장하는 변수
+int currentPosition = 0; //입력 비밀번호 개수를 저장하는 변수
+
+void displayCodeEntry() {
+  
+  Serial.print("Enter PIN Code : ");
+  Serial.print('[');
+}
+
+void setup () {
+  pinMode(rLedPin, OUTPUT);
+  pinMode(gLedPin, OUTPUT);
+  pinMode(bLedPin, OUTPUT);
+  
+  digitalWrite(rLedPin, LOW);
+  digitalWrite(gLedPin, LOW);
+  digitalWrite(bLedPin, LOW);
+  
+  Serial.begin(9600);
+  displayCodeEntry();
+}
+
+void loop () {
+  char customKey = myKeypad.getKey();
+  enterPinCode += customKey;
+  
+  if(customKey) {
+    Serial.print('*');
+    currentPosition ++;
+    
+    if (currentPosition == 4) {
+      
+      Serial.println(']');
+      if(enterPinCode.compareTo(pinCode)) {
+        Serial.println("Match Success!");
+        Serial.println("--------------");
+        digitalWrite(rLedPin,LOW);
+        digitalWrite(gLedPin,HIGH);
+        digitalWrite(bLedPin,LOW);
+      }
+      else {
+        Serial.println("Match Failure!");
+        Serial.println("--------------");
+        digitalWrite(rLedPin,HIGH);
+        digitalWrite(gLedPin,LOW);
+        digitalWrite(bLedPin,LOW);
+      }
+      delay(3000);
+      
+      displayCodeEntry();
+      enterPinCode=" ";
+      currentPosition = 0;
+      digitalWrite(rLedPin, LOW);
+      digitalWrite(gLedPin, LOW);
+      digitalWrite(bLedPin, HIGH);
+    }
+  }
+}
