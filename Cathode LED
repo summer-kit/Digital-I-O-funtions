@@ -2,7 +2,7 @@ const int ledPin = 12;
 
 void setup() {
   pinMode(ledPin,OUTPUT);
-  digitalWrite(ledPin,HIGH);
+  digitalWrite(ledPin,HIGH); //setup의 위치에 ledPin의 상태가 설정되어 있다.
 }
 
 void loop() {
